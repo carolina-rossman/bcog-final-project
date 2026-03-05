@@ -6,9 +6,9 @@ We will be attempting to recreate an advanced version of the no wifi dinosour ga
       b) Another function needs to control the dinosaur, including user-inputted jumps.
       c) The last function needs to control the background and have it scroll, and the dinosaur moves. 
 ### 3. If you are doing a group project, the list of group members with both their real names and Github usernames.
-Alex Transue: a-tran69
-Patricia Richards: liltrishpzr-glitch
-Carolina Rossman: carolina-rossman
+      Alex Transue: a-tran69
+      Patricia Richards: liltrishpzr-glitch
+      Carolina Rossman: carolina-rossman
 ### 4. If you are doing a group project, very brief statements (1-2 sentences each) describing:
       a) How work will be divided (assigned and tracked) among group members.
       Tracked: At the end of whatever code someone just completed, they will put # (their name), and we will include a file in the GitHub where our contributions will be written down.
