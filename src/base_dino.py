@@ -54,6 +54,4 @@ def run_game():
         pygame.display.update()
         clock.tick(60)
 
-def power_ups(): 
-    jet_pack = "hi"
     

@@ -15,7 +15,8 @@ class PowerUps:
         self.revival = pygame.transform.scale(pygame.image.load("../stimuli/life_token.png"), (50, 70))
         self.nothing = pygame.transform.scale(pygame.image.load("../stimuli/white_screen.png"), (1, 1))
         #selecting random image 
-        self.powerups_list = [self.jetpack, self.immunity, self.revival, self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing, self.nothing]
+        self.powerups_list =[self.jetpack, self.jetpack,self.nothing, self.nothing, self.nothing, self.nothing, self.nothing, self.nothing, self.nothing, self.nothing, self.nothing, self.nothing]
+        #self.powerups_list = [self.jetpack, self.immunity, self.revival, self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing, self.nothing]
         # to increase number of jetpacks likelihood to spawn, just add more self.jetpack above 
         self.image = random.choice(self.powerups_list)
         self.rect = self.image.get_rect()
@@ -38,14 +39,6 @@ class PowerUps:
     def draw(self, screen):
         screen.blit(self.image, self.rect)
     
-    def jetpack(self):
-        pass
-    def immunity(self): 
-        pass 
-
-    def revival(self):
-        pass
-        #look at code for shield power-up)
 
 class PowerDowns:
     def __init__(self, screen_width, screen_height):
@@ -90,12 +83,16 @@ def main():
      y_gravity = 0.5
      jump_height = 8 
      y_vel = jump_height
-     standing_surface = pygame.transform.scale(pygame.image.load("../stimuli/dino.png"), (25, 35))
+     standing_dino = pygame.transform.scale(pygame.image.load("../stimuli/dino.png"), (25, 35))
+     normal_dino = standing_dino
      jumping_surface = pygame.transform.scale(pygame.image.load("../stimuli/jumping_dino.png"), (25, 35))
+     jetpack_dino = pygame.transform.scale(pygame.image.load("../stimuli/jetpack_dino.png"), (25, 35))
      background = scrolling_background.Game()
      spawned_powerups = [PowerUps(screen_width, screen_height) for _ in range(1)]
      spawned_powerdown = [PowerDowns(screen_width, screen_height) for _ in range(1)]
      running = True 
+     jetpack_active = False 
+     jetpack_time = 0 
      while running: 
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
@@ -103,12 +100,40 @@ def main():
         keys_pressed = pygame.key.get_pressed()
         if keys_pressed[pygame.K_SPACE]: 
             jumping = True
+        if jetpack_active:
+            jetpack_time -= 1
+            if jetpack_time <= 0:
+                jetpack_active = False
+                normal_dino = standing_dino
+                y_pos = 95
+        dino_rect = normal_dino.get_rect(center=(x_pos, y_pos))
         for bg in background.bg: 
             bg.update(-background.speed)
         for power in spawned_powerups: 
             power.move()
+            if dino_rect.colliderect(power.rect):
+                if power.image == power.jetpack:
+                    jetpack_active = True
+                    jetpack_time = 500
+                    normal_dino = jetpack_dino
+                    y_pos = 50 
+                    #cause a reaction
+                elif power.image == power.immunity:
+                    pass
+                    #cause a reaction
+                else:
+                    pass
+                    #cause a reaction, revival 
+                power.rect.x = -100
         for power in spawned_powerdown:
             power.move()
+            if power.image == power.speed_up:
+                pass 
+            #cause a reaction
+            elif power.image == power.tiny_dino:
+                pass
+            #cause a reaction
+            power.rect.x = -100
         if jumping: 
             y_pos -= y_vel
             y_vel -= y_gravity
@@ -121,11 +146,11 @@ def main():
             power.draw(screen)
         for power in spawned_powerdown: 
             power.draw(screen)
-        dino_rect = standing_surface.get_rect(center =(x_pos, y_pos))
+        dino_rect = normal_dino.get_rect(center =(x_pos, y_pos))
         if jumping: 
             screen.blit(jumping_surface, dino_rect)
         else: 
-            screen.blit(standing_surface, dino_rect)
+            screen.blit(normal_dino, dino_rect)
         pygame.display.flip()
         clock.tick(60)
      pygame.quit()
