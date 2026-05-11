@@ -15,8 +15,7 @@ class PowerUps:
         self.revival = pygame.transform.scale(pygame.image.load("../stimuli/life_token.png"), (50, 70))
         self.nothing = pygame.transform.scale(pygame.image.load("../stimuli/white_screen.png"), (1, 1))
         #selecting random image 
-        self.powerups_list =[self.jetpack, self.jetpack,self.nothing, self.nothing, self.nothing, self.nothing, self.nothing, self.nothing, self.nothing, self.nothing, self.nothing, self.nothing]
-        #self.powerups_list = [self.jetpack, self.immunity, self.revival, self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing, self.nothing]
+        self.powerups_list = [self.jetpack, self.immunity, self.revival, self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing,self.nothing, self.nothing]
         # to increase number of jetpacks likelihood to spawn, just add more self.jetpack above 
         self.image = random.choice(self.powerups_list)
         self.rect = self.image.get_rect()
@@ -87,12 +86,22 @@ def main():
      normal_dino = standing_dino
      jumping_surface = pygame.transform.scale(pygame.image.load("../stimuli/jumping_dino.png"), (25, 35))
      jetpack_dino = pygame.transform.scale(pygame.image.load("../stimuli/jetpack_dino.png"), (25, 35))
+     immunity_dino = pygame.transform.scale(pygame.image.load("../stimuli/shield_dino.png"), (25, 35))
+     tiny_dino = pygame.transform.scale(pygame.image.load("../stimuli/tiny_dino.png"), (15, 25))
      background = scrolling_background.Game()
      spawned_powerups = [PowerUps(screen_width, screen_height) for _ in range(1)]
      spawned_powerdown = [PowerDowns(screen_width, screen_height) for _ in range(1)]
      running = True 
      jetpack_active = False 
      jetpack_time = 0 
+     immunity_active = False 
+     immunity_time = 0 
+     revival_active = False 
+     revival_time = 0 
+     speedup_active = False 
+     speedup_time = 0 
+     tinydino_active = False 
+     tinydino_time = 0 
      while running: 
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
@@ -106,6 +115,27 @@ def main():
                 jetpack_active = False
                 normal_dino = standing_dino
                 y_pos = 95
+        if immunity_active: 
+            immunity_time -= 1
+            if immunity_time <= 0: 
+                immunity_active = False 
+                normal_dino = standing_dino
+                #revert other changes 
+        if revival_active: 
+            revival_time -= 1
+            if revival_time <= 0: 
+                revival_active = False 
+                normal_dino = standing_dino
+        if speedup_active:
+            speedup_time -= 1
+            if speedup_time <= 0:
+                speedup_active = False 
+                normal_dino = standing_dino
+        if tinydino_active:
+            tinydino_time -= 1
+            if tinydino_time <= 0:
+                tinydino_active = False 
+                normal_dino = standing_dino
         dino_rect = normal_dino.get_rect(center=(x_pos, y_pos))
         for bg in background.bg: 
             bg.update(-background.speed)
@@ -116,24 +146,30 @@ def main():
                     jetpack_active = True
                     jetpack_time = 500
                     normal_dino = jetpack_dino
-                    y_pos = 50 
-                    #cause a reaction
+                    y_pos = 30 
                 elif power.image == power.immunity:
-                    pass
-                    #cause a reaction
+                    immunity_active = True 
+                    immunity_time = 500
+                    normal_dino = immunity_dino
+                    #can't die, use obstacles death variable once created
                 else:
-                    pass
+                    revival_active = True 
+                    revival_time = 500
                     #cause a reaction, revival 
                 power.rect.x = -100
         for power in spawned_powerdown:
             power.move()
-            if power.image == power.speed_up:
-                pass 
+            if dino_rect.colliderect(power.rect):
+                if power.image == power.speed_up:
+                    speedup_active = True 
+                    speedup_time = 500
             #cause a reaction
-            elif power.image == power.tiny_dino:
-                pass
+                elif power.image == power.tiny_dino:
+                    tinydino_active = True 
+                    tinydino_time = 500
+                    normal_dino = tiny_dino
             #cause a reaction
-            power.rect.x = -100
+                power.rect.x = -100
         if jumping: 
             y_pos -= y_vel
             y_vel -= y_gravity
