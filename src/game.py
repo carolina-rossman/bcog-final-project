@@ -65,7 +65,7 @@ class PowerDowns:
         screen.blit(self.image, self.rect)
 
 class Obstacles:
-    def create_obstacles(self): 
+    def __init__(self, screen_width, screen_height):
         self.fence = pygame.image.load("../stimuli/fence.png")
         self.bush = pygame.image.load("../stimuli/bush.png")
         self.obstacle_list = [self.bush, self.fence]
@@ -87,8 +87,6 @@ class Obstacles:
         return False
     def draw(self, screen):
         screen.blit(self.image, self.rect)
-        # generate those images as background scrolls 
-        # use pygame
 
 
 def main(): 
