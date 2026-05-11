@@ -77,6 +77,7 @@ class Obstacles:
         self.rect.x = screen_width + random.randint(100,300)
         self.rect.y = 45
         self.speed = 5
+    
     def move(self):
         self.rect.x -= self.speed
         if self.rect.right < 0:
