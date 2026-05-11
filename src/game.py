@@ -212,6 +212,8 @@ def main():
             power.draw(screen)
         for power in spawned_powerdown: 
             power.draw(screen)
+        for obstacle in spawned_obstacles:
+            obstacle.draw(screen)
         dino_rect = normal_dino.get_rect(center =(x_pos, y_pos))
         if jumping: 
             dino_rect = jumping_dino.get_rect(center = (x_pos, y_pos))
