@@ -5,6 +5,11 @@ We are bringing two beloved games together, the dinosaur game (no-wifi Google ga
 to provide our take on the genre of side-scrolling games. Together, we have worked to create a sci-fi 
 experience like no other, creating an addictive experience for all. 
 
+## To Run the Game
+To run the game put in "uv run python main.py"
+Make sure your path is "...\dino-dash\src"
+(currently we are having some issues so please do "uv run python game.py" to see the obstacles and powerups/powerdowns)
+
 ## Names and Parameters
        1.) Start Screen                      
        -The instructions                                          
