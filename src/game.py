@@ -66,7 +66,7 @@ class PowerDowns:
 
 class Obstacles:
     def __init__(self, screen_width, screen_height):
-        self.fence = pygame.image.load("../stimuli/fence.png")
+        self.fence = pygame.transform.scale(pygame.image.load("../stimuli/fence.png"), (50, 70))
         self.bush = pygame.image.load("../stimuli/bush.png")
         self.obstacle_list = [self.bush, self.fence]
         self.image = random.choice(self.obstacle_list)
