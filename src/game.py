@@ -66,6 +66,7 @@ class PowerDowns:
 
 class Obstacles:
     def __init__(self, screen_width, screen_height):
+        #obstacle images loaded in
         self.fence = pygame.transform.scale(pygame.image.load("../stimuli/fence.png"), (50, 70))
         self.bush = pygame.transform.scale(pygame.image.load("../stimuli/bush.png"), (50, 70))
         self.obstacle_list = [self.bush, self.fence]
@@ -77,7 +78,8 @@ class Obstacles:
         self.rect.x = screen_width + random.randint(100,300)
         self.rect.y = 45
         self.speed = 5
-    
+        #speed of obstacle as it goes across the screen
+
     def move(self):
         self.rect.x -= self.speed
         if self.rect.right < 0:
