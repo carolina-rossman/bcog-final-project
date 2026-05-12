@@ -37,3 +37,9 @@ wheels = [
 name = "src"
 version = "0.1.0"
 source = { virtual = "src" }
+dependencies = [
+    { name = "pygame-ce" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pygame-ce", specifier = ">=2.5.7" }]
