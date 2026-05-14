@@ -191,7 +191,7 @@ def main():
             dino_rect = normal_dino.get_rect (center = (x_pos, y_pos))
         for power in spawned_powerups: 
             power.move(any_active_powerup_powerdown)
-            if not any_active_powerup_powerdown and power.image != power.nothing: 
+            if power.image != power.nothing: 
                 if dino_rect.colliderect(power.rect):
                     if power.image == power.jetpack:
                         jetpack_active = True
@@ -213,7 +213,7 @@ def main():
                     power.rect.x = -100
         for power in spawned_powerdown:
             power.move(any_active_powerup_powerdown)
-            if not any_active_powerup_powerdown and power.image != power.nothing:
+            if power.image != power.nothing:
                 if dino_rect.colliderect(power.rect):
                     if power.image == power.speed_up:
                         speedup_active = True 
