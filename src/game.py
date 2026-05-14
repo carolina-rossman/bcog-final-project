@@ -125,6 +125,7 @@ def main():
             if immunity_time <= 0: 
                 immunity_active = False 
                 normal_dino = standing_dino
+                jumping_dino = jumping_surface
                 #revert other changes 
         if revival_active: 
             revival_time -= 1
@@ -192,7 +193,7 @@ def main():
                         if not jumping: 
                             y_pos = ground 
             #cause a reaction
-                        power.rect.x = -100
+                    power.rect.x = -100
         if jumping: 
             y_pos -= y_vel
             y_vel -= y_gravity
