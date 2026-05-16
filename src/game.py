@@ -96,6 +96,7 @@ def main():
      spawned_powers = [Powers(screen_width, screen_height) for _ in range(1)]
      spawned_obstacles = [Obstacles(screen_width, screen_height) for _ in range(2)]
      running = True 
+     god_mode = False 
      jetpack_active = False 
      jetpack_time = 0 
      immunity_active = False 
@@ -111,6 +112,9 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
                 running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_0:
+                    god_mode = True
         keys_pressed = pygame.key.get_pressed()
         if keys_pressed[pygame.K_SPACE]: 
             if not jetpack_active:
@@ -208,13 +212,10 @@ def main():
         for obstacle in spawned_obstacles:
             obstacle.move()
             if dino_rect.colliderect(obstacle.rect):
-                if immunity_active:
+                if god_mode:
                     pass
-                elif revival_active:
-                    revival_active = False
-                    revival_time = 0 
-                    normal_dino = standing_dino
-                    obstacle.rect.x = -100
+                elif immunity_active:
+                    pass
                 else:
                     death_screen.main()
                     return
