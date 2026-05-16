@@ -11,8 +11,8 @@ class Display():
         self.canvas = pygame.display.set_mode(self.screen_size)
         self.background_image = pygame.image.load("../stimuli/powers_screen.png")
         self.background_image = pygame.transform.scale(self.background_image, (self.screen_size))
-        self.start_button = pygame.Rect(80, 550, 200, 50)
-        self.quit_button = pygame.Rect(520, 550, 200, 50)
+        self.start_button = pygame.Rect(80, 500, 200, 50)
+        self.quit_button = pygame.Rect(520, 500, 200, 50)
         pygame.display.set_caption("Powers Screen")
                 
     def init_window(self):
