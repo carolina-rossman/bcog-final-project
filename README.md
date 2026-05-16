@@ -6,7 +6,7 @@ to provide our take on the genre of side-scrolling games. Together, we have work
 experience like no other, creating an addictive experience for all. 
 
 ## To Run the Game
-You will need to install packages, to run this game, refer to requirement.txt for
+You will need to install packages, to run this\  game, refer to requirement.txt for
 those packages, additionally you can try: 
 pip install -r requirements.txt
 To run the game first download the src and stimuli folders
