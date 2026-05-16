@@ -16,17 +16,20 @@ class Powers:
         self.nothing = pygame.transform.scale(pygame.image.load("../stimuli/white_screen.png"), (1, 1))
         self.speed_up = pygame.transform.scale(pygame.image.load("../stimuli/double_time_token.png"), (30, 30))
         self.tiny_dino = pygame.transform.scale(pygame.image.load("../stimuli/tiny_dino_token.png"), (30, 30))
+        # loads all powerups and powerdown in a list and selects a random power up/power down, or nothing/free pass of no power-up or power-down
         self.all_powers = [self.jetpack, self.immunity, self.speed_up, self.tiny_dino, self.nothing, self.nothing, self.nothing] 
         self.image = random.choice(self.all_powers)
+        #registers outline of the image, so we can code a function as the dino passes through a power
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
+        #setting up screen size
         self.screen_width = screen_width
         self.screen_height = screen_height 
+        # powers spawn, at random x position, set y position, and go across the screen at a set speed 
         self.rect.x = screen_width + random.randint(100,300)
         self.rect.y = 85
         self.speed = 5
-        #speed of power-up, as it passes
-    
+  
     def move(self, blocked):
         self.rect.x -= self.speed 
         if self.rect.right < 0: 
@@ -75,13 +78,16 @@ def main():
      pygame.init()
      screen = pygame.display.set_mode((screen_width, screen_height))
      clock = pygame.time.Clock()
+     # setting x_position, y_position for dino, and used for other things as well
      x_pos = 100
      ground = 95 
      y_pos = ground 
+     # importing variables so the dino jumps, and so it can be manipulated in the effect of powerups and powerdowns
      jumping = False 
      y_gravity = 0.5
      jump_height = 8 
      y_vel = jump_height
+     # imporing all stimuli for powerups and powerdowns, and setting variables so they can easily be manipulated 
      standing_dino = pygame.transform.scale(pygame.image.load("../stimuli/dino.png"), (25, 35))
      normal_dino = standing_dino
      jumping_surface = pygame.transform.scale(pygame.image.load("../stimuli/jumping_dino.png"), (25, 35))
@@ -90,10 +96,13 @@ def main():
      immunity_dino = pygame.transform.scale(pygame.image.load("../stimuli/shield_dino.png"), (25, 35))
      tiny_dino = pygame.transform.scale(pygame.image.load("../stimuli/tiny_dino.png"), (20, 30))
      tiny_dino_jumping = pygame.transform.scale(pygame.image.load("../stimuli/tiny_dino.png"), (20, 30))
+     # runs scrolling_background.py as the background for the game 
      background = scrolling_background.Game()
      normal_speed = background.speed
+     # selects 1 powers and 2 obstacles and spawns them in 
      spawned_powers = [Powers(screen_width, screen_height) for _ in range(1)]
      spawned_obstacles = [Obstacles(screen_width, screen_height) for _ in range(2)]
+    #setting variables to manipulate for powerups and powerdowns 
      running = True 
      god_mode = False 
      jetpack_active = False 
@@ -105,6 +114,7 @@ def main():
      tinydino_active = False 
      tinydino_time = 0 
      any_active_powerup_powerdown = False 
+     # allowing you to quit the game, and enter god mode if press the 0 key
      while running: 
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
@@ -116,6 +126,7 @@ def main():
         if keys_pressed[pygame.K_SPACE]: 
             if not jetpack_active:
                 jumping = True
+        # counts down the time of the powerup/power down being active and when the time is out sets everything back to normal 
         if jetpack_active:
             jetpack_time -= 1
             if jetpack_time <= 0:
@@ -128,7 +139,6 @@ def main():
                 immunity_active = False 
                 normal_dino = standing_dino
                 jumping_dino = jumping_surface
-                #revert other changes 
         if speedup_active:
             speedup_time -= 1
             if speedup_time <= 0:
@@ -145,6 +155,7 @@ def main():
                 if not jumping: 
                     y_pos = ground 
         dino_rect = normal_dino.get_rect(center=(x_pos, y_pos))
+        # gets a variable to check if any powerup/powerdown is active, to prevent one from spawning while another is active 
         any_active_powerup_powerdown = (jetpack_time > 0 or  
                                         immunity_time > 0 or 
                                         speedup_time > 0 or 
@@ -171,7 +182,6 @@ def main():
                         immunity_time = 500
                         normal_dino = immunity_dino
                         jumping_dino = immunity_dino
-                    #can't die, use obstacles death variable once created
                     elif power.image == power.speed_up:
                          speedup_active = True 
                          speedup_time = 500
