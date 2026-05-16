@@ -13,11 +13,10 @@ class Powers:
         #loading images for powerups 
         self.jetpack = pygame.transform.scale(pygame.image.load("../stimuli/jetpack_token.png"), (30, 30))
         self.immunity = pygame.transform.scale(pygame.image.load("../stimuli/shield_token.png"), (30, 30))
-        self.revival = pygame.transform.scale(pygame.image.load("../stimuli/life_token.png"), (30, 30))
         self.nothing = pygame.transform.scale(pygame.image.load("../stimuli/white_screen.png"), (1, 1))
         self.speed_up = pygame.transform.scale(pygame.image.load("../stimuli/double_time_token.png"), (30, 30))
         self.tiny_dino = pygame.transform.scale(pygame.image.load("../stimuli/tiny_dino_token.png"), (30, 30))
-        self.all_powers = [self.jetpack, self.immunity, self.revival, self.speed_up, self.tiny_dino, self.nothing, self.nothing, self.nothing] 
+        self.all_powers = [self.jetpack, self.immunity, self.speed_up, self.tiny_dino, self.nothing, self.nothing, self.nothing] 
         self.image = random.choice(self.all_powers)
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
@@ -100,9 +99,7 @@ def main():
      jetpack_active = False 
      jetpack_time = 0 
      immunity_active = False 
-     immunity_time = 0 
-     revival_active = False 
-     revival_time = 0 
+     immunity_time = 0
      speedup_active = False 
      speedup_time = 0 
      tinydino_active = False 
@@ -132,11 +129,6 @@ def main():
                 normal_dino = standing_dino
                 jumping_dino = jumping_surface
                 #revert other changes 
-        if revival_active: 
-            revival_time -= 1
-            if revival_time <= 0: 
-                revival_active = False 
-                normal_dino = standing_dino
         if speedup_active:
             speedup_time -= 1
             if speedup_time <= 0:
@@ -155,7 +147,6 @@ def main():
         dino_rect = normal_dino.get_rect(center=(x_pos, y_pos))
         any_active_powerup_powerdown = (jetpack_time > 0 or  
                                         immunity_time > 0 or 
-                                        revival_time > 0 or 
                                         speedup_time > 0 or 
                                         tinydino_time > 0)
         for bg in background.bg: 
@@ -181,10 +172,6 @@ def main():
                         normal_dino = immunity_dino
                         jumping_dino = immunity_dino
                     #can't die, use obstacles death variable once created
-                    elif power.image == power.revival:
-                        revival_active = True 
-                        revival_time = 500
-                    #cause a reaction, revival 
                     elif power.image == power.speed_up:
                          speedup_active = True 
                          speedup_time = 500
