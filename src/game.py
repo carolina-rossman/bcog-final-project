@@ -15,9 +15,10 @@ class Powers:
         self.immunity = pygame.transform.scale(pygame.image.load("../stimuli/shield_token.png"), (50, 70))
         self.revival = pygame.transform.scale(pygame.image.load("../stimuli/life_token.png"), (50, 70))
         self.nothing = pygame.transform.scale(pygame.image.load("../stimuli/white_screen.png"), (1, 1))
-        self.speed_up = pygame.transform.scale(pygame.image.load("../stimuli/double_time_token.png"), (50, 70))
+        self.speed_up = pygame.transform.scale(pygame.image.load("../stimuli/double_time_token.png"), (25, 25))
         self.tiny_dino = pygame.transform.scale(pygame.image.load("../stimuli/tiny_dino_token.png"), (50, 70))
-        self.all_powers = [self.jetpack, self.immunity, self.revival, self.speed_up, self.tiny_dino, self.nothing, self.nothing, self.nothing]  
+        # self.all_powers = [self.jetpack, self.immunity, self.revival, self.speed_up, self.tiny_dino, self.nothing, self.nothing, self.nothing] 
+        self.all_powers = [self.speed_up, self.speed_up] 
         self.image = random.choice(self.all_powers)
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
