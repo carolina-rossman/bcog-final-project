@@ -1,7 +1,7 @@
 import pygame
 import pygame.freetype
 import sys
-import base_dino
+import game
 
 
 class Display:
@@ -43,7 +43,7 @@ class Display:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     print("Restart!")
                     if self.restart_button.collidepoint(event.pos):
-                        new_screen = base_dino.run_game()
+                        new_screen = game.main()
                         new_screen.restart
                     if self.quit_button.collidepoint(event.pos):
                         pygame.quit()

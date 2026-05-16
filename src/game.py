@@ -3,6 +3,7 @@ import random
 import pygame
 import base_dino
 import scrolling_background
+import death_screen
 
 screen_width = 800
 screen_height = 150 
@@ -207,7 +208,8 @@ def main():
         for obstacle in spawned_obstacles:
             obstacle.move()
             if dino_rect.colliderect(obstacle.rect):
-                pass
+                death_screen.main
+                return
         for bg in background.bg:
             bg.show(screen)
         for power in spawned_powers: 
