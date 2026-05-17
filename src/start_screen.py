@@ -42,7 +42,7 @@ class Display():
         # creates the text for the buttons, bolds it and makes the text white 
         start_text = self.button_font.render ("Start!", True, (255, 255, 255))
         quit_text = self.button_font.render ("Quit", True, (255, 255, 255))
-        # finished creating the buttons visually no function yet, with the correct fornt and position 
+        # finished creating the buttons visually, no function yet
         self.canvas.blit (start_text, (self.start_button.x, self.start_button.y))
         self.canvas.blit(quit_text, (self.quit_button.x, self.quit_button.y))
 
@@ -63,7 +63,7 @@ class Display():
                     if self.start_button.collidepoint(event.pos):
                         new_screen = instructions_screen.Display()
                         new_screen.go()
-                    # if you press the quit putton, you are exited out of the game 
+                    # if you press the quit button, you are exited out of the game 
                     if self.quit_button.collidepoint(event.pos): 
                         pygame.quit()
                         sys.exit()
