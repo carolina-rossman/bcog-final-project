@@ -91,7 +91,7 @@ We will be attempting to recreate an advanced version of the no wifi dinosaur ga
 
 ## Testing
 You can run the test by running pytest in the root directory as a module. Do so by running:  
-python -m pytest  
+uv run pytest test_agents.py   
 
   
 When running the game you should expect the following:  
