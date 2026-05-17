@@ -30,19 +30,30 @@ class Powers:
         self.speed = 5
   
     def move(self, blocked):
+        # Moves the power to the left 
         self.rect.x -= self.speed 
+        # checks to see if the power is off the screen, to the left
         if self.rect.right < 0: 
+            # if another power is active, the image will always be nothing 
             if blocked:
                 self.image = self.nothing
+            # if not then the image is randomly picked from the all_powers list 
             else: 
                 self.image = random.choice(self.all_powers)
+            # recalculating the hitbox, added to avoid bugs that were occuring
             self.rect = self.image.get_rect()
+            # generates the collision mask for the image
             self.mask = pygame.mask.from_surface(self.image)
+            # Spawns and respawns the image/power to the right of the screen randomly between (100 and 500) pixels
             self.rect.x = self.screen_width + random.randint(100, 500)
+            # the height of the image is 85, so it's on the ground 
             self.rect.y = 85
+            # items succesfully spawned as if off the screen
             return True
+        # item is still on the screen
         return False  
     def draw(self, screen):
+        # draw the power image in the game given it's position 
         screen.blit(self.image, self.rect)
 
 class Obstacles:
@@ -131,10 +142,12 @@ def main():
                 jumping = True
         # counts down the time of the powerup/power down being active and when the time is out undos the effect from the various powerups/powerdowns
         if jetpack_active:
+            # counts time down
             jetpack_time -= 1
             if jetpack_time <= 0:
                 jetpack_active = False
                 normal_dino = standing_dino
+                #reactivates jumping logic so dino goes down slowly like when jumping instead of instant
                 jumping = True 
                 y_vel = 0 
         if immunity_active: 
