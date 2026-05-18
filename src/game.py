@@ -78,7 +78,7 @@ class Powers:
 
 
 class Obstacles:
-    def __init__(self, screen_width, screen_height, spawn_range):
+    def __init__(self, screen_width, screen_height, spawn_range, obstacle_type=None):
         # obstacle images loaded in
         self.fence = pygame.transform.scale(
             pygame.image.load("../stimuli/fence.png"), (30, 30)
@@ -87,7 +87,12 @@ class Obstacles:
             pygame.image.load("../stimuli/bush.png"), (30, 30)
         )
         self.obstacle_list = [self.bush, self.fence]
-        self.image = random.choice(self.obstacle_list)
+        self.obstacle_type = obstacle_type
+        self.obstacle_type = obstacle_type
+        if self.obstacle_type is not None:
+            self.image = self.obstacle_list[self.obstacle_type]
+        else:
+            self.image = random.choice(self.obstacle_list)
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
         self.screen_width = screen_width
@@ -104,8 +109,11 @@ class Obstacles:
             self.rect.x = self.screen_width + random.randint(
                 self.spawn_range[0], self.spawn_range[1]
             )
-            # selects an image at random from obstacles list
-            self.image = random.choice(self.obstacle_list)
+            if self.obstacle_type is not None:
+                self.image = self.obstacle_list[self.obstacle_type]
+            else:
+                # selects an image at random from obstacles list
+                self.image = random.choice(self.obstacle_list)
             self.rect = self.image.get_rect(topleft=(self.rect.x, self.rect.y))
             return True
         return False
@@ -160,8 +168,8 @@ def main():
     spawned_powers = [Powers(screen_width, screen_height) for _ in range(1)]
     #  spawned_obstacles = [Obstacles(screen_width, screen_height) for _ in range(2)]
     spawned_obstacles = [
-        Obstacles(screen_width, screen_height, (100, 250)),
-        Obstacles(screen_width, screen_height, (400, 550)),
+        Obstacles(screen_width, screen_height, (100, 250), obstacle_type=0),
+        Obstacles(screen_width, screen_height, (400, 550), obstacle_type=1),
     ]
     # setting variables to manipulate for powerups and powerdowns
     running = True
