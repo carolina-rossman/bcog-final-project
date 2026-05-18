@@ -99,8 +99,8 @@ def main():
      # runs scrolling_background.py as the background for the game 
      background = scrolling_background.Game()
      normal_speed = background.speed
-     game_progression = 1.0 #this tracks the game speed and progesses the game time overtime 
-     acceleration_rate = 0.003
+     game_progression = 1.0 #this tracks the game speed and progesses the game time overtime (Patricia coded)
+     acceleration_rate = 0.003 # makes the background gradually speedup as the game is played (Patricia coded)
      # selects 1 powers and 2 obstacles and spawns them in 
      spawned_powers = [Powers(screen_width, screen_height) for _ in range(1)]
      spawned_obstacles = [Obstacles(screen_width, screen_height) for _ in range(2)]
@@ -162,10 +162,10 @@ def main():
                                         immunity_time > 0 or 
                                         speedup_time > 0 or 
                                         tinydino_time > 0)
-        if not speedup_active:
-            game_progression += acceleration_rate
-            normal_speed = 0.6 * game_progression 
-            background.speed = normal_speed
+        if not speedup_active:# makes the background gradually speedup as the game is played (Patricia coded)
+            game_progression += acceleration_rate # makes the background gradually speedup as the game is played (Patricia coded)
+            normal_speed = 0.6 * game_progression # makes the background gradually speedup as the game is played (Patricia coded)
+            background.speed = normal_speed # makes the background gradually speedup as the game is played (Patricia coded)
         for bg in background.bg: 
             bg.update(-background.speed)
         if jumping: 
