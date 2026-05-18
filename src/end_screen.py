@@ -13,7 +13,7 @@ class Display:
         self.background = pygame.Surface(self.window.get_size())
         self.blue = [100, 149, 237]
         self.background.fill(self.blue)
-        self.restart_button = pygame.Rect(80, 500, 200, 50)
+        self.play_again_button = pygame.Rect(80, 500, 200, 50)
         self.quit_button = pygame.Rect(520, 500, 200, 50)
         self.window.blit(self.background, (0, 0))
         text_one, rect = self.font.render("Congrats!")
@@ -23,15 +23,17 @@ class Display:
         pygame.display.flip()
 
     def create_buttons(self):
-        pygame.draw.rect(self.window, (0, 200, 0), self.restart_button)
+        pygame.draw.rect(self.window, (0, 200, 0), self.play_again_button)
         pygame.draw.rect(self.window, (200, 0, 0), self.quit_button)
         self.button_font = pygame.font.SysFont("Arial", 20, bold=True)
-        restart_text = self.button_font.render("Play Again", True, (255, 255, 255))
+        play_again_text = self.button_font.render("Play Again", True, (255, 255, 255))
         quit_text = self.button_font.render("Quit", True, (255, 255, 255))
-        self.window.blit(restart_text, (self.restart_button.x, self.restart_button.y))
+        self.window.blit(
+            play_again_text, (self.play_again_button.x, self.play_again_button.y)
+        )
         self.window.blit(quit_text, (self.quit_button.x, self.quit_button.y))
 
-    def restart(self):
+    def play_again(self):
         clock = pygame.time.Clock()
         running = True
         while running:
@@ -43,10 +45,10 @@ class Display:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    print("Restart!")
-                    if self.restart_button.collidepoint(event.pos):
+                    print("Play Again!")
+                    if self.play_again_button.collidepoint(event.pos):
                         new_screen = game.main()
-                        new_screen.restart
+                        new_screen.play_again
                     if self.quit_button.collidepoint(event.pos):
                         pygame.quit()
                         sys.exit()
@@ -56,7 +58,7 @@ class Display:
 
 def main():
     my_display = Display()
-    my_display.restart()
+    my_display.play_again()
 
 
 if __name__ == "__main__":
