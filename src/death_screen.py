@@ -54,7 +54,7 @@ class Display:
                         new_screen.restart
                     # when you press the quit button with your mouse, everything else quits too
                     if self.quit_button.collidepoint(event.pos):
-                        print("Quqit")
+                        print("Quit")
                         pygame.quit()
                         sys.exit()
             pygame.display.update()
