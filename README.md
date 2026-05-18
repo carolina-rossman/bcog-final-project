@@ -12,8 +12,8 @@ pip install -r requirements.txt
 To run the game first download the src and stimuli folders  
 Then in your terminal, put in   
 "uv run python main.py"  
-Make sure your path is "...\dino-dash\src"  
-
+Make sure your path is "...\dino-dash\src"    
+Note: to reach the end of the game you can enter God-mode by pressing 0   
 ## Names and Parameters
        1.) Start Screen + Instruction screen                      
        -The instructions                                          
